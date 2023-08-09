@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e7707fd-cbf2-4cb6-9a75-62927ac3c9bc" name="Changes" comment="wrote basic cell and snake classes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Gui.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+    <list default="true" id="3e7707fd-cbf2-4cb6-9a75-62927ac3c9bc" name="Changes" comment="wrote basic board class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +71,21 @@
       <option name="project" value="LOCAL" />
       <updated>1691369574417</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added files for gui and main method">
+      <created>1691453314700</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1691453314700</updated>
+    </task>
+    <task id="LOCAL-00005" summary="wrote basic board class">
+      <created>1691453322560</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1691453322560</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,6 +103,8 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="created cell type enum" />
     <MESSAGE value="wrote basic cell and snake classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="wrote basic cell and snake classes" />
+    <MESSAGE value="added files for gui and main method" />
+    <MESSAGE value="wrote basic board class" />
+    <option name="LAST_COMMIT_MESSAGE" value="wrote basic board class" />
   </component>
 </project>
