@@ -70,6 +70,19 @@ public class Game {
     }
 
     private Cell getNextCell(Cell currentPosition) {
-        return null;
+        int row = currentPosition.getRow();
+        int col = currentPosition.getCol();
+
+        if (direction == DIRECTION_RIGHT) {
+            col++;
+        } else if (direction == DIRECTION_LEFT) {
+            col--;
+        } else if (direction == DIRECTION_UP) {
+            row--;
+        } else if (direction == DIRECTION_DOWN) {
+            row++;
+        }
+        Cell nextCell = board.getCell(row, col);
+        return nextCell;
     }
 }
