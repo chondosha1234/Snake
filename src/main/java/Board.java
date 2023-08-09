@@ -23,6 +23,10 @@ public class Board {
         this.cells = cells;
     }
 
+    public Cell getCell(int row, int col) {
+        return cells[row][col];
+    }
+
     public void generateFood() {
         int row = 0;
         int col = 0;
