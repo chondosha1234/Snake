@@ -9,9 +9,9 @@ import java.awt.event.MouseListener;
 public class SnakeGui extends JFrame implements MouseListener, ActionListener {
 
     private Game game;
-    private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel, choicePanel;
-    private JButton yesButton, noButton, pauseButton, resetButton, highScoreButton;
-    private JLabel scoreLabel, highScoreLabel, choiceLabel;
+    private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel, continuePanel, pausePanel;
+    private JButton yesButton, noButton, pauseButton, resetButton, highScoreButton, quitButton;
+    private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
     private int row;
     private int col;
     private final int cellSize;
@@ -22,6 +22,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
         int marginSize = 16;
         Border border = BorderFactory.createEmptyBorder(marginSize, marginSize, marginSize, marginSize);
 
+        // create main window and the score, game, and button panels
         window = new JPanel(new BorderLayout());
         getContentPane().add(window);
 
@@ -36,6 +37,29 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
         buttonPanel = new JPanel();
         window.add(buttonPanel, BorderLayout.SOUTH);
 
+        // add buttons to button panel
+        resetButton = new JButton("Reset");
+        pauseButton = new JButton("Pause");
+        highScoreButton = new JButton("High Scores");
+        quitButton = new JButton("Quit");
+
+        Dimension buttonSize = new Dimension(50, 50);
+        resetButton.setPreferredSize(buttonSize);
+        pauseButton.setPreferredSize(buttonSize);
+        highScoreButton.setPreferredSize(buttonSize);
+        quitButton.setPreferredSize(buttonSize);
+
+        resetButton.addActionListener(this);
+        pauseButton.addActionListener(this);
+        highScoreButton.addActionListener(this);
+        quitButton.addActionListener(this);
+
+        buttonPanel.add(resetButton);
+        buttonPanel.add(pauseButton);
+        buttonPanel.add(highScoreButton);
+        buttonPanel.add(quitButton);
+
+        // set up new game and create game board from it
         resetGame();
         createBoard();
     }
@@ -45,8 +69,8 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
             JPanel cell = new JPanel();
             gamePanel.add(cell);
 
-            row = (i / 50);
-            col = (i % 50);
+            int row = (i / 50);
+            int col = (i % 50);
             CellType currentCellType = game.getBoard().getCell(row, col).getCellType();
 
             if (currentCellType == CellType.EMPTY) {
@@ -70,10 +94,28 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
         this.game = new Game(snake, board);
     }
 
+    private void showHighScores() {
+
+    }
+
+    private void showQuitDialogue() {
+
+    }
+
+    private void showContinueDialogue() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == resetButton) {
             resetGame();
+        } else if (e.getSource() == highScoreButton) {
+            showHighScores();
+        } else if (e.getSource() == pauseButton) {
+            showContinueDialogue();
+        } else if (e.getSource() == quitButton) {
+            showQuitDialogue();
         }
     }
 
