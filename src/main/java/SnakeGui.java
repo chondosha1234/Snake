@@ -99,11 +99,11 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
     }
 
     private void showQuitDialogue() {
-
+        JOptionPane.showConfirmDialog(window, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION);
     }
 
     private void showContinueDialogue() {
-
+        JOptionPane.showConfirmDialog(window, "Continue?", "Pause", JOptionPane.YES_NO_OPTION);
     }
 
     @Override
