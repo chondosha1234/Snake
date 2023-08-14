@@ -1,20 +1,19 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
-public class SnakeGui extends JFrame implements MouseListener, ActionListener {
+public class SnakeGui extends JFrame implements MouseListener, ActionListener, KeyListener {
 
     private Game game;
     private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel, continuePanel, pausePanel;
     private JButton yesButton, noButton, pauseButton, resetButton, highScoreButton, quitButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
+    private static final int FPS = 30;
     private int row;
     private int col;
     private final int cellSize;
+    private Timer timer;
 
     public SnakeGui() {
         Dimension boardSize = new Dimension(500, 500);
@@ -43,7 +42,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
         highScoreButton = new JButton("High Scores");
         quitButton = new JButton("Quit");
 
-        Dimension buttonSize = new Dimension(50, 50);
+        Dimension buttonSize = new Dimension(100, 50);
         resetButton.setPreferredSize(buttonSize);
         pauseButton.setPreferredSize(buttonSize);
         highScoreButton.setPreferredSize(buttonSize);
@@ -59,9 +58,19 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
         buttonPanel.add(highScoreButton);
         buttonPanel.add(quitButton);
 
+        // prepare JFrame to take key input
+        addKeyListener(this);
+        setFocusable(true);
+
         // set up new game and create game board from it
         resetGame();
         createBoard();
+
+        timer = new Timer(1000/FPS, e -> {
+            updateBoard();
+            repaint();
+        });
+        timer.start();
     }
 
     private void createBoard() {
@@ -84,7 +93,22 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
     }
 
     private void updateBoard() {
+        this.game.update();
+        for (int i = 0; i < 2500; i++) {
+            JPanel cell = (JPanel)gamePanel.getComponent(i);
 
+            int row = (i / 50);
+            int col = (i % 50);
+            CellType currentCellType = game.getBoard().getCell(row, col).getCellType();
+
+            if (currentCellType == CellType.EMPTY) {
+                cell.setBackground(Color.BLACK);
+            } else if (currentCellType == CellType.SNAKE_SEGMENT) {
+                cell.setBackground(Color.GREEN);
+            } else if (currentCellType == CellType.FOOD) {
+                cell.setBackground(Color.RED);
+            }
+        }
     }
 
     private void resetGame() {
@@ -117,6 +141,31 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
         } else if (e.getSource() == quitButton) {
             showQuitDialogue();
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+
+        if (keyCode == KeyEvent.VK_UP) {
+            this.game.setDirection(Game.DIRECTION_UP);
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            this.game.setDirection(Game.DIRECTION_DOWN);
+        } else if (keyCode == KeyEvent.VK_LEFT) {
+            this.game.setDirection(Game.DIRECTION_LEFT);
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
+            this.game.setDirection(Game.DIRECTION_RIGHT);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 
     @Override
