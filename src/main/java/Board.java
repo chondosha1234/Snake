@@ -13,6 +13,7 @@ public class Board {
         for (int row = 0; row < ROW_COUNT; row++) {
             for (int col = 0; col < COL_COUNT; col++) {
                 cells[row][col] = new Cell(row, col);
+                cells[row][col].setCellType(CellType.EMPTY);
             }
         }
     }
