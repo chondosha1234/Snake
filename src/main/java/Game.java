@@ -14,6 +14,7 @@ public class Game {
     public Game(Snake snake, Board board) {
         this.snake = snake;
         this.board = board;
+        this.direction = DIRECTION_NONE;
     }
 
     public Snake getSnake() {
