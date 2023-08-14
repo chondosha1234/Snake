@@ -66,7 +66,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
 
     private void createBoard() {
         for (int i = 0; i < 2500; i++) {
-            JPanel cell = new JPanel();
+            JPanel cell = new JPanel(new BorderLayout());
             gamePanel.add(cell);
 
             int row = (i / 50);
@@ -74,11 +74,11 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
             CellType currentCellType = game.getBoard().getCell(row, col).getCellType();
 
             if (currentCellType == CellType.EMPTY) {
-                cell.setBackground(Color.WHITE);
-            } else if (currentCellType == CellType.SNAKE_SEGMENT) {
                 cell.setBackground(Color.BLACK);
-            } else if (currentCellType == CellType.FOOD) {
+            } else if (currentCellType == CellType.SNAKE_SEGMENT) {
                 cell.setBackground(Color.GREEN);
+            } else if (currentCellType == CellType.FOOD) {
+                cell.setBackground(Color.RED);
             }
         }
     }
@@ -89,13 +89,13 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener {
 
     private void resetGame() {
         // maybe change starting position / cell?    also set direction?
-        Snake snake = new Snake(new Cell(25, 25));
         Board board = new Board(50, 50);
+        Cell center = board.getCell(25, 25);
+        Snake snake = new Snake(center);
         this.game = new Game(snake, board);
     }
 
     private void showHighScores() {
-
     }
 
     private void showQuitDialogue() {
