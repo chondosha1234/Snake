@@ -59,9 +59,12 @@ public class Game {
                     setDirection(DIRECTION_NONE);
                     setGameOver(true);
                 } else {
+                    // get cell type before move, because the move always sets it to Snake Body type
+                    CellType nextCellType = nextCell.getCellType();
                     snake.move(nextCell);
                     // if player gets food, snake grows and make new food
-                    if (nextCell.getCellType() == CellType.FOOD) {
+                    if (nextCellType == CellType.FOOD) {
+                        System.out.println("inside update nextcell is food");
                         snake.grow();
                         board.generateFood();
                     }
