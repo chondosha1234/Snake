@@ -116,6 +116,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
         Board board = new Board(50, 50);
         Cell center = board.getCell(25, 25);
         Snake snake = new Snake(center);
+        board.generateFood();
         this.game = new Game(snake, board);
     }
 
