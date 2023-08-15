@@ -9,7 +9,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel, continuePanel, pausePanel;
     private JButton yesButton, noButton, pauseButton, resetButton, highScoreButton, quitButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
-    private static final int FPS = 30;
+    private static final int FPS = 25;
     private int row;
     private int col;
     private final int cellSize;
@@ -65,7 +65,10 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
         // set up new game and create game board from it
         resetGame();
         createBoard();
+        runGame();
+    }
 
+    private void runGame() {
         timer = new Timer(1000/FPS, e -> {
             updateBoard();
             repaint();
@@ -135,6 +138,8 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == resetButton) {
             resetGame();
+            this.requestFocusInWindow();
+            runGame();
         } else if (e.getSource() == highScoreButton) {
             showHighScores();
         } else if (e.getSource() == pauseButton) {
