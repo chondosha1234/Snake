@@ -9,7 +9,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel, continuePanel, pausePanel;
     private JButton yesButton, noButton, pauseButton, resetButton, highScoreButton, quitButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
-    private static final int FPS = 25;
+    private static final int FPS = 60;
     private int row;
     private int col;
     private final int cellSize;
@@ -127,11 +127,16 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     }
 
     private void showQuitDialogue() {
-        JOptionPane.showConfirmDialog(window, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showConfirmDialog(window, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     private void showContinueDialogue() {
-        JOptionPane.showConfirmDialog(window, "Continue?", "Pause", JOptionPane.YES_NO_OPTION);
+        String[] options = {"Continue"};
+        JOptionPane.showOptionDialog(window, "Continue?", "Pause", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
 
     @Override
