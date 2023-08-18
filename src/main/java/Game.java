@@ -9,12 +9,14 @@ public class Game {
     private Snake snake;
     private Board board;
     private int direction;
+    private int score;
     private boolean gameOver;
 
     public Game(Snake snake, Board board) {
         this.snake = snake;
         this.board = board;
         this.direction = DIRECTION_NONE;
+        this.score = 0;
     }
 
     public Snake getSnake() {
@@ -31,6 +33,14 @@ public class Game {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public boolean isGameOver() {
@@ -66,6 +76,7 @@ public class Game {
                     if (nextCellType == CellType.FOOD) {
                         System.out.println("inside update nextcell is food");
                         snake.grow();
+                        setScore(this.score + 1);
                         board.generateFood();
                     }
                 }

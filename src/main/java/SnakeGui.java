@@ -6,14 +6,11 @@ import java.awt.event.*;
 public class SnakeGui extends JFrame implements MouseListener, ActionListener, KeyListener {
 
     private Game game;
-    private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel, continuePanel, pausePanel;
-    private JButton yesButton, noButton, pauseButton, resetButton, highScoreButton, quitButton;
+    private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel;
+    private JButton pauseButton, resetButton, highScoreButton, quitButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
     private static final int FPS = 60;
-    private int row;
-    private int col;
     private final int cellSize;
-    private Timer timer;
 
     public SnakeGui() {
         Dimension boardSize = new Dimension(500, 500);
@@ -32,6 +29,10 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
 
         scorePanel = new JPanel();
         window.add(scorePanel, BorderLayout.NORTH);
+
+        // add label to panel
+        scoreLabel = new JLabel("");
+        scorePanel.add(scoreLabel);
 
         buttonPanel = new JPanel();
         window.add(buttonPanel, BorderLayout.SOUTH);
@@ -69,7 +70,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     }
 
     private void runGame() {
-        timer = new Timer(1000/FPS, e -> {
+        Timer timer = new Timer(1000 / FPS, e -> {
             updateBoard();
             repaint();
         });
@@ -93,6 +94,8 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
                 cell.setBackground(Color.RED);
             }
         }
+
+        scoreLabel.setText("Score: " + game.getScore());
     }
 
     private void updateBoard() {
@@ -112,6 +115,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
                 cell.setBackground(Color.RED);
             }
         }
+        scoreLabel.setText("Score: " + game.getScore());
     }
 
     private void resetGame() {
