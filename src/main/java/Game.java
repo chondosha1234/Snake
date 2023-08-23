@@ -74,7 +74,6 @@ public class Game {
                     snake.move(nextCell);
                     // if player gets food, snake grows and make new food
                     if (nextCellType == CellType.FOOD) {
-                        System.out.println("inside update nextcell is food");
                         snake.grow();
                         setScore(this.score + 1);
                         board.generateFood();
@@ -97,7 +96,12 @@ public class Game {
         } else if (direction == DIRECTION_DOWN) {
             row++;
         }
-        Cell nextCell = board.getCell(row, col);
-        return nextCell;
+        if (board.hitWall(row, col)) {
+            setGameOver(true);
+            return snake.getHead();
+        } else {
+            Cell nextCell = board.getCell(row, col);
+            return nextCell;
+        }
     }
 }

@@ -9,7 +9,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel;
     private JButton pauseButton, resetButton, highScoreButton, quitButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
-    private static final int FPS = 60;
+    private static final int FPS = 30;
     private final int cellSize;
 
     public SnakeGui() {

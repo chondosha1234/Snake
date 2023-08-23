@@ -25,7 +25,13 @@ public class Board {
     }
 
     public Cell getCell(int row, int col) {
+        if (hitWall(row, col)) {
+        }
         return cells[row][col];
+    }
+
+    public boolean hitWall(int row, int col) {
+        return (row >= ROW_COUNT || row < 0 || col >= COL_COUNT || col < 0);
     }
 
     public void generateFood() {
