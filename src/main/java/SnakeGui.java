@@ -10,6 +10,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     private JButton pauseButton, resetButton, highScoreButton, quitButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
     private static final int FPS = 30;
+    private Timer timer;
     private final int cellSize;
 
     public SnakeGui() {
@@ -70,7 +71,10 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     }
 
     private void runGame() {
-        Timer timer = new Timer(1000 / FPS, e -> {
+        if (timer != null) {
+            timer.stop();
+        }
+        timer = new Timer(1000 / FPS, e -> {
             updateBoard();
             repaint();
         });
