@@ -28,8 +28,9 @@ public class Snake {
         for (Cell cell : snakeBody) {
             if (cell == nextCell) {
                 return true;
+            } else if (nextCell.getCellType() == CellType.WALL) {
+                return true;
             }
-            //or check if wall ?
         }
         return false;
     }
