@@ -6,16 +6,18 @@ import java.awt.event.*;
 public class SnakeGui extends JFrame implements MouseListener, ActionListener, KeyListener {
 
     private Game game;
-    private JPanel window, gamePanel, scorePanel, buttonPanel, highScorePanel;
-    private JButton pauseButton, resetButton, highScoreButton, quitButton;
+    private final JPanel window, gamePanel, scorePanel, buttonPanel;
+    private final JButton pauseButton, resetButton, highScoreButton, quitButton, modeButton;
     private JLabel scoreLabel, highScoreLabel, continueLabel, pauseLabel;
-    private static final int FPS = 30;
+    private static final int FPS = 20;
     private Timer timer;
     private final int cellSize;
 
     public SnakeGui() {
-        Dimension boardSize = new Dimension(500, 500);
-        cellSize = 500 / 10;
+        int width = 650;
+        int height = 650;
+        Dimension boardSize = new Dimension(width, height);
+        cellSize = width / 10;
         int marginSize = 16;
         Border border = BorderFactory.createEmptyBorder(marginSize, marginSize, marginSize, marginSize);
 
@@ -23,7 +25,7 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
         window = new JPanel(new BorderLayout());
         getContentPane().add(window);
 
-        gamePanel = new JPanel(new GridLayout(50, 50));
+        gamePanel = new JPanel(new GridLayout(cellSize, cellSize));
         gamePanel.setPreferredSize(boardSize);
         gamePanel.setBounds(0, 0, boardSize.width, boardSize.height);
         window.add(gamePanel, BorderLayout.CENTER);
@@ -43,22 +45,26 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
         pauseButton = new JButton("Pause");
         highScoreButton = new JButton("High Scores");
         quitButton = new JButton("Quit");
+        modeButton = new JButton("Mode");
 
         Dimension buttonSize = new Dimension(100, 50);
         resetButton.setPreferredSize(buttonSize);
         pauseButton.setPreferredSize(buttonSize);
         highScoreButton.setPreferredSize(buttonSize);
         quitButton.setPreferredSize(buttonSize);
+        modeButton.setPreferredSize(buttonSize);
 
         resetButton.addActionListener(this);
         pauseButton.addActionListener(this);
         highScoreButton.addActionListener(this);
         quitButton.addActionListener(this);
+        modeButton.addActionListener(this);
 
         buttonPanel.add(resetButton);
         buttonPanel.add(pauseButton);
         buttonPanel.add(highScoreButton);
         buttonPanel.add(quitButton);
+        buttonPanel.add(modeButton);
 
         // prepare JFrame to take key input
         addKeyListener(this);
@@ -82,12 +88,12 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
     }
 
     private void createBoard() {
-        for (int i = 0; i < 2500; i++) {
+        for (int i = 0; i < (cellSize*cellSize); i++) {
             JPanel cell = new JPanel(new BorderLayout());
             gamePanel.add(cell);
 
-            int row = (i / 50);
-            int col = (i % 50);
+            int row = (i / cellSize);
+            int col = (i % cellSize);
             CellType currentCellType = game.getBoard().getCell(row, col).getCellType();
 
             if (currentCellType == CellType.EMPTY) {
@@ -96,6 +102,8 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
                 cell.setBackground(Color.GREEN);
             } else if (currentCellType == CellType.FOOD) {
                 cell.setBackground(Color.RED);
+            } else if (currentCellType == CellType.WALL) {
+                cell.setBackground(Color.LIGHT_GRAY);
             }
         }
 
@@ -104,11 +112,11 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
 
     private void updateBoard() {
         this.game.update();
-        for (int i = 0; i < 2500; i++) {
+        for (int i = 0; i < (cellSize*cellSize); i++) {
             JPanel cell = (JPanel)gamePanel.getComponent(i);
 
-            int row = (i / 50);
-            int col = (i % 50);
+            int row = (i / cellSize);
+            int col = (i % cellSize);
             CellType currentCellType = game.getBoard().getCell(row, col).getCellType();
 
             if (currentCellType == CellType.EMPTY) {
@@ -124,8 +132,8 @@ public class SnakeGui extends JFrame implements MouseListener, ActionListener, K
 
     private void resetGame() {
         // maybe change starting position / cell?    also set direction?
-        Board board = new Board(50, 50);
-        Cell center = board.getCell(25, 25);
+        Board board = new Board(cellSize, cellSize);
+        Cell center = board.getCell(cellSize/2, cellSize/2);
         Snake snake = new Snake(center);
         board.generateFood();
         this.game = new Game(snake, board);
