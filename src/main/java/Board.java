@@ -25,15 +25,20 @@ public class Board {
     }
 
     public Cell getCell(int row, int col) {
-        if (hitWall(row, col)) {
-        }
         return cells[row][col];
     }
 
+    /**
+     * Checks if snake has hit the edge of board, or hit a wall cell, which is a type of cell used in harder game modes
+     */
     public boolean hitWall(int row, int col) {
-        return (row >= ROW_COUNT || row < 0 || col >= COL_COUNT || col < 0);
+        return (row >= ROW_COUNT || row < 0 || col >= COL_COUNT || col < 0) || cells[row][col].getCellType() == CellType.WALL;
     }
 
+
+    /**
+     * Randomly choices cell that is not a snake or wall segment, and sets it to food
+     */
     public void generateFood() {
         int row = 0;
         int col = 0;
@@ -42,7 +47,8 @@ public class Board {
         while(true) {
             row = (int) (Math.random() * ROW_COUNT);
             col = (int) (Math.random() * COL_COUNT);
-            if (cells[row][col].getCellType() != CellType.SNAKE_SEGMENT)
+            CellType type = cells[row][col].getCellType();
+            if (type != CellType.SNAKE_SEGMENT && type != CellType.WALL)
                 break;
         }
         cells[row][col].setCellType(CellType.FOOD);
